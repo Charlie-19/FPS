@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using CCPAService.Models;
+using fpsLibrary.Models;
 
 namespace CCPAService
 {
@@ -26,6 +28,14 @@ namespace CCPAService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IAzureTableStorage<CCPADetails>>(factory =>
+            {
+                return new AzureTableStorage<CCPADetails>(
+                    new AzureTableSettings(
+                        storageAccount: Configuration.GetSection("StorageAccount")["Table_StorageAccount"],
+                        storageKey: Configuration.GetSection("StorageAccount")["Table_StorageKey"],
+                        tableName: Configuration.GetSection("StorageAccount")["Table_TableName"]));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

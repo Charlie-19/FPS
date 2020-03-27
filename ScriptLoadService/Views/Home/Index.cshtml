@@ -1,8 +1,56 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="jumbotron">
+    <h1>Alive</h1>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 boldStatus">
+            <strong>
+                <table class="table borderless">
+                    <tr>
+                        <td>Overall Status:</td>
+                        <td id="status"></td>
+                    </tr>
+                    <tr>
+                        <td>Number of FAIL:</td>
+                        <td id="failures"></td>
+                    </tr>
+                </table>
+            </strong>
+        </div>
+    </div>
+
+    <div class="row results">
+        <div class="col-md-3">
+            <table class="table borderless">
+                <tr>
+                    <td>Download JS:</td>
+                    <td id="downloadJSSuccess"></td>
+                </tr>
+                <tr>
+                    <td>SetTest1:</td>
+                    <td id="setTest1Result"></td>
+                </tr>
+                <tr>
+                    <td>GetTest1:</td>
+                    <td id="getTest1Result"></td>
+                </tr>
+            </table>
+            <div id="getTest1Data" style="font-size: x-small;"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var GLOBALS = {
+            api_url: "@ViewBag.ApiUrl"
+        };
+    </script>
+    <script src="@Url.Content("https://localhost:44388" + "/Scripts/statusPage.js")"></script>
+} 
